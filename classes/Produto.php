@@ -1,25 +1,17 @@
 <?php
+
+require_once 'config/firebase.php';
 class Produto
 {
     private $id;
     private $nome;
     private $descricao;
-    private $codigoBarras;
+    private $codigo_barras;
     private $fabricante;
     private $validade;
+    private $imagem;
 
-    // construtor
-    public function __construct($id, $nome, $descricao, $codigoBarras, $fabricante, $validade)
-    {
-        $this->id = $id;
-        $this->nome = $nome;
-        $this->descricao = $descricao;
-        $this->codigoBarras = $codigoBarras;
-        $this->fabricante = $fabricante;
-        $this->validade = $validade;
-    }
-
-    // getters e setters
+    // Métodos para obter e definir os atributos da classe
     public function getId()
     {
         return $this->id;
@@ -50,14 +42,14 @@ class Produto
         $this->descricao = $descricao;
     }
 
-    public function getCodigoBarras()
+    public function getCodigoDeBarras()
     {
-        return $this->codigoBarras;
+        return $this->codigo_barras;
     }
 
-    public function setCodigoBarras($codigoBarras)
+    public function setCodigoDeBarras($codigo_barras)
     {
-        $this->codigoBarras = $codigoBarras;
+        $this->codigo_barras = $codigo_barras;
     }
 
     public function getFabricante()
@@ -78,5 +70,53 @@ class Produto
     public function setValidade($validade)
     {
         $this->validade = $validade;
+    }
+
+    public function getImagem()
+    {
+        return $this->imagem;
+    }
+
+    public function setImagem($imagem)
+    {
+        $this->imagem = $imagem;
+    }
+
+    public function add()
+    {
+        global $firestore;
+
+        // adiciona um novo documento com o ID especificado
+        $firestore->collection('Produtos')->add([
+            'nome' => $this->nome,
+            'descricao' => $this->descricao,
+            'codigo_barras' => $this->codigo_barras,
+            'fabricante' => $this->fabricante,
+            'validade' => $this->validade,
+            'imagem' => $this->imagem
+        ]);
+    }
+
+    // método para atualizar um documento Produto existente no Firestore
+    public function set()
+    {
+        global $firestore;
+
+        $firestore->collection('Produtos')->document($this->id)->set([
+            'nome' => $this->nome,
+            'descricao' => $this->descricao,
+            'codigo_barras' => $this->codigo_barras,
+            'fabricante' => $this->fabricante,
+            'validade' => $this->validade,
+            'imagem' => $this->imagem
+        ]);
+    }
+
+    // método para remover um documento Produto do Firestore
+    public function delete()
+    {
+        global $firestore;
+
+        $firestore->collection('Produtos')->document($this->id)->delete();
     }
 }

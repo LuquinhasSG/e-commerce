@@ -1,6 +1,7 @@
 {
     "require": {
         "grpc/grpc": "1.38",
-        "google/cloud-firestore": "^1.28"
+        "google/cloud-firestore": "^1.28",
+        "kreait/firebase-php": "^5.26"
     }
 }
