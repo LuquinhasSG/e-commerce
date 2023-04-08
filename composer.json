@@ -2,6 +2,7 @@
     "require": {
         "grpc/grpc": "1.38",
         "google/cloud-firestore": "^1.28",
-        "kreait/firebase-php": "^5.26"
+        "kreait/firebase-php": "^5.26",
+        "stichoza/google-translate-php": "^5.1"
     }
 }
