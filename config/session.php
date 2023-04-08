@@ -2,6 +2,6 @@
 session_start();
 
 if (!isset($_SESSION['user'])) {
-  header('Location: autenticacao.php');
+  header('Location: authentication.php');
   exit();
 }

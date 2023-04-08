@@ -1,16 +1,32 @@
 <?php
-
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use Google\Cloud\Firestore\FirestoreClient;
 use Kreait\Firebase\Factory;
 
-$factory = (new Factory)->withServiceAccount('keys/serviceAccountKey.json');
-$auth = $factory->createAuth();
+class FirebaseConfig
+{
+    private $auth;
+    private $firestore;
 
+    public function __construct()
+    {
+        $factory = (new Factory)->withServiceAccount(__DIR__ . '/../keys/serviceAccountKey.json');
+        $this->auth = $factory->createAuth();
 
-// Inicializa o Firebase SDK
-$firestore = new FirestoreClient([
-  'projectId' => 'e-commerce-263e3',
-  'keyFilePath' => 'keys/serviceAccountKey.json'
-]);
+        $this->firestore = new FirestoreClient([
+            'projectId' => 'e-commerce-263e3',
+            'keyFilePath' => __DIR__ . '/../keys/serviceAccountKey.json'
+        ]);
+    }
+
+    public function getAuth()
+    {
+        return $this->auth;
+    }
+
+    public function getFirestore()
+    {
+        return $this->firestore;
+    }
+}
