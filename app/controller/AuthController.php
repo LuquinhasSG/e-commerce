@@ -32,14 +32,13 @@ class AuthController
       header('Location: authentication.php');
       exit();
     } catch (\Exception $e) {
-      $message = ucfirst($this->translate->translate($e->getMessage()));
+      $message = $this->translate->translate($e->getMessage());
       header('Location: authentication.php?tab=registro&erro=' . $message);
     }
   }
 
   public function login($email, $senha)
   {
-    echo "login";
     try {
       $user = $this->firebase->getAuth()->signInWithEmailAndPassword($email, $senha);
       $firestoreUser = $this->firebase->getFirestore()->collection('Usuarios')->document($user->data()['localId'])->snapshot();
@@ -50,7 +49,7 @@ class AuthController
       header('Location: list_products.php');
       exit();
     } catch (\Exception $e) {
-      $message = ucfirst($this->translate->translate($e->getMessage()));
+      $message = $this->translate->translate($e->getMessage());
       header('Location: authentication.php?erro=' . $message);
     }
   }
