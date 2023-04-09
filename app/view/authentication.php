@@ -87,7 +87,7 @@ if (isset($_SESSION['user'])) {
 <script>
   $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const erro = urlParams.get('erro');
+    const erro = urlParams.get('erro').toLowerCase().replace(/^\w/, c => c.toUpperCase());
     var tab = urlParams.get('tab');
 
     if (tab === 'login') {
