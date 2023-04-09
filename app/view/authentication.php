@@ -52,7 +52,7 @@ if (isset($_SESSION['user'])) {
       </div>
 
       <div class="tab-pane fade" id="registro">
-        <form action="javascript:void(0);" method="POST" id="registro-form" onsubmit="validatePassword()">
+        <form action="auth.php" method="POST" id="registro-form" onsubmit="validatePassword()">
           <div class="mb-3 mt-3">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" class="form-control" placeholder="Insira seu nome" id="nome" name="nome" required>
@@ -87,7 +87,7 @@ if (isset($_SESSION['user'])) {
 <script>
   $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const erro = urlParams.get('erro').toLowerCase().replace(/^\w/, c => c.toUpperCase());
+    const erro = urlParams.get('erro') != null ? urlParams.get('erro').toLowerCase().replace(/^\w/, c => c.toUpperCase()) : null;
     var tab = urlParams.get('tab');
 
     if (tab === 'login') {
@@ -133,7 +133,6 @@ if (isset($_SESSION['user'])) {
       $("#alert").text("A senha deve conter no mínimo 6 caracteres.");
       return false;
     }
-
     form.submit();
   }
 </script>
